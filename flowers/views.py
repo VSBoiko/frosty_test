@@ -16,7 +16,7 @@ def sellers(request):
         .annotate(dsum=Sum('price'))
 
     result = {deal["lot__seller_id"]: {
-        "seller": f"{deal['lot__seller__lastname']} {deal['lot__seller__firstname']}",
+        "seller_name": f"{deal['lot__seller__lastname']} {deal['lot__seller__firstname']}",
         "customers": {},
     } for deal in deals}
 
@@ -24,15 +24,14 @@ def sellers(request):
         seller_id = deal["lot__seller_id"]
         new_customer = {
             deal["customer_id"]: {
-                "customer": f"{deal['customer__lastname']} {deal['customer__firstname']}",
+                "customer_name": f"{deal['customer__lastname']} {deal['customer__firstname']}",
                 "summa": deal["dsum"],
             }
         }
         result[seller_id]["customers"].update(new_customer)
 
-    print(result)
     context = {
-        "deals": deals
+        "sellers": result
     }
-    # print(deals.query)
+
     return render(request, 'flowers/sellers.html', context)
