@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for deal in deals %}
+        {{ deal.customer__lastname }} = {{ deal.lot__seller__lastname }} = {{ deal.dsum }} <br>
+    {% endfor %}
+</body>
+</html>
